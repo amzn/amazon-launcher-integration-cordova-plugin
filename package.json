@@ -3,6 +3,18 @@
   "version": "1.0.0",
   "license": "See LICENSE in LICENSE",
   "description": "Cordova Plugin that enables Launcher Integration on the FireTV platform.",
+  "keywords": [
+      "amazon",
+      "cordova",
+      "plugin",
+      "launcher",
+      "integration",
+      "catalog",
+      "firetv"
+  ],
+  "bugs": {
+      "url": "https://github.com/amzn/amazon-launcher-integration-cordova-plugin/issues"
+  },
   "cordova": {
     "id": "AmazonLauncherIntegration",
     "platforms": [
