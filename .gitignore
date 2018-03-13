@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+
+# Intellij project files
+*.iml
+.idea/
+

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android" id="com.amazon.cordova.plugins.launcher"
+        version="1.0.0">
+
+    <name>AmazonLauncherIntegration</name>
+    <description>Amazon Launcher Integration Plugin</description>
+    <license> Apache 2.0 </license>
+    <keywords>cordova,amazon,launcher,integration</keywords>
+
+
+    <platform name="android">
+        <config-file target="config.xml" parent="/*">
+            <feature name="LauncherIntegrationPlugin">
+                <param name="android-package"
+                       value="com.amazon.cordova.plugins.launcher.LauncherIntegrationPlugin"/>
+                <param name="onload" value="true"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <receiver android:name="com.amazon.cordova.plugins.launcher.LauncherIntegrationReceiver" android:exported="true">
+                <intent-filter>
+                    <action android:name="com.amazon.device.REQUEST_CAPABILITIES"/>
+                </intent-filter>
+            </receiver>
+            <meta-data
+                    android:name="com.amazon.cordova.plugins.launcher.DISPLAY_NAME"
+                    android:value="$DISPLAY_NAME"/>
+            <meta-data
+                    android:name="com.amazon.cordova.plugins.launcher.PARTNER_ID"
+                    android:value="$PARTNER_ID"/>
+            <meta-data
+                    android:name="com.amazon.cordova.plugins.launcher.DEFAULT_SIGNEDIN_STATUS"
+                    android:value="$DEFAULT_SIGNEDIN_STATUS"/>
+            <meta-data
+                    android:name="com.amazon.cordova.plugins.launcher.DEEP_LINK_REGEX"
+                    android:value="$DEEP_LINK_REGEX"/>
+            <meta-data
+                    android:name="com.amazon.cordova.plugins.launcher.VIDEO_ID_IS_URI"
+                    android:value="$VIDEO_ID_IS_URI"/>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="com.amazon.device.permission.COMRADE_CAPABILITIES"/>
+        </config-file>
+
+        <source-file
+                src="src/com/amazon/cordova/plugins/launcher/LauncherIntegrationPlugin.java"
+                target-dir="src/com/amazon/cordova/plugins/launcher"/>
+        <source-file
+                src="src/com/amazon/cordova/plugins/launcher/LauncherIntegrationReceiver.java"
+                target-dir="src/com/amazon/cordova/plugins/launcher"/>
+        <source-file
+                src="src/com/amazon/cordova/plugins/launcher/LauncherIntegrationUtils.java"
+                target-dir="src/com/amazon/cordova/plugins/launcher"/>
+
+        <preference name="DISPLAY_NAME"/>
+        <preference name="PARTNER_ID"/>
+        <preference name="DEEP_LINK_REGEX" default="^(.+)$"/>
+        <preference name="DEFAULT_SIGNEDIN_STATUS" default="false"/>
+        <preference name="VIDEO_ID_IS_URI" default="true"/>
+
+        <js-module src="www/amazonLauncherIntegration.js" name="AmazonLauncherIntegration">
+            <clobbers target="AmazonLauncherIntegration"/>
+        </js-module>
+
+        <hook type="after_plugin_install" src="./scripts/add_intent_filter.js"/>
+        <hook type="after_plugin_install" src="./scripts/enable_deep_linking.js"/>
+        <hook type="before_plugin_uninstall" src="./scripts/remove_intent_filter.js"/>
+        <hook type="before_plugin_uninstall" src="./scripts/disable_deep_linking.js"/>
+    </platform>
+
+</plugin>

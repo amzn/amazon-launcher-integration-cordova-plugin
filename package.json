@@ -1,0 +1,23 @@
+{
+  "name": "AmazonLauncherIntegration",
+  "version": "1.0.0",
+  "license": "See LICENSE in LICENSE",
+  "description": "Cordova Plugin that enables Launcher Integration on the FireTV platform.",
+  "cordova": {
+    "id": "AmazonLauncherIntegration",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/amzn/AmazonLauncherIntegration"
+  },
+  "scripts": {
+    "postinstall": "node scripts/add_intent_filter.js",
+    "postuninstall": "node scripts/remove_intent_filter.js"
+  },
+  "dependencies": {
+    "elementtree": "^0.1.7"
+  }
+}
