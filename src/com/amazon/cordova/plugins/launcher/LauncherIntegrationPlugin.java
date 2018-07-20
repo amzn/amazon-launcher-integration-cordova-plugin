@@ -50,6 +50,7 @@ public class LauncherIntegrationPlugin extends CordovaPlugin {
             if (action.equals(LauncherIntegrationUtils.ACTION_SET_SIGNED_IN)) {
                 matchedAction = LauncherIntegrationUtils.ACTION_SET_SIGNED_IN;
                 this.setSignedInStatus(args.getBoolean(0));
+                LauncherIntegrationUtils.broadcastCapabilities(cordova.getActivity().getApplicationContext());
                 callbackContext.success();
                 return true;
             }
